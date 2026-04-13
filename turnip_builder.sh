@@ -306,8 +306,8 @@ id=turnip
 name=Turnip Vulkan Driver
 version=$version
 versionCode=$version_code
-author=Community Build
-description=Turnip is an open-source Vulkan driver for Adreno GPUs based on Mesa.
+author=Aurified.Dev
+description=Turnip is an open-source Vulkan driver for Adreno GPUs based on Mesa. Debug and GPU Cache Disabled.
 EOF
 
     cat >"$magiskdir/system.prop" <<EOF
