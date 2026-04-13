@@ -1,3 +1,5 @@
+### TLDR;
+
 This is a bash script to build freedreno/turnip for android as a magisk module. Made specifically for compatibilty with linux-deb. Linux-deb users may encounter a host of problems when attemptiong to compile the bash script origionally given by ilhan-athn7 and later forked by k11mch1, this new bash script bypasses issues surrounding header problems, linker issues, and lack of identifying deb /usr prereq install locations.
 
 ### Notes;
@@ -67,7 +69,7 @@ This is a significant engineering achievement in the realm of open-source Androi
 
 ### To Build Locally
 - Obtain the script [turnip_builder.sh]
-- Execute script on linux terminal ```bash ./turnip_builder.sh```
+- Execute script on linux deb terminal ```bash ./turnip_builder.sh```
 
 ### References
 
@@ -76,3 +78,7 @@ This is a significant engineering achievement in the realm of open-source Androi
 - https://gitlab.freedesktop.org/mesa/mesa/-/issues/6802
 
 - https://github.com/bylaws/libadrenotools
+
+- https://github.com/ilhan-athn7/freedreno_turnip-CI
+
+- https://github.com/K11MCH1/freedreno_turnip-CI
