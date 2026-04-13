@@ -7,15 +7,12 @@ This is a bash script to build freedreno/turnip for android as a magisk module. 
 The script now successfully builds libvulkan_freedreno.so (Mesa 26.0.4) for Android aarch64 and packages it into a Magisk module, ready for installation on Adreno GPU devices.
 
 🔍 Summary of Changes & Fixes
-1. Critical Syntax & Path Fixes
-Space-in-Path Resolution: The original script failed because the build directory contained spaces (Driver Turnip Builder CLI). We renamed the directory to Driver-Turnip-Builder-CLI to prevent the shell from splitting arguments (e.g., treating Turnip as a command).
-Line Continuation Errors: Multiple sed and meson commands failed because comments or missing backslashes (\) broke the command chains. We cleaned up all comments inside multi-line commands and ensured every line ended with \.
-Variable Scope: Fixed a bug where $MESASRC_DIR was used as an absolute path after cding into it, causing double-path errors. We switched to relative paths (src/...) inside the build function.
+1. Variable Scope: Fixed a bug where $MESASRC_DIR was used as an absolute path after cding into it, causing double-path errors. Switched to relative paths (src/...) inside the build function.
 2. Dependency Management (The "Host Library" Nightmare)
 Host vs. Target Mismatch: The linker kept trying to link against x86_64 host libraries (/usr/lib/x86_64-linux-gnu/libz.so, libelf.so) instead of the aarch64 NDK libraries.
-Fix: We added sed commands to strip these explicit host paths from the generated build.ninja file.
+Fix: Added sed commands to strip these explicit host paths from the generated build.ninja file.
 Missing libz (Zlib): Disabling zlib caused "undefined symbol" errors (gzopen, deflate, etc.) because parts of the code still called these functions.
-Fix: We created custom C stubs (zlib_stubs.c) that provide empty implementations of all gz* functions. We compiled these into a static library (libz_stub.a) and injected it into the link command right before --end-group to satisfy the linker without needing the real library.
+Fix: Created custom C stubs (zlib_stubs.c) that provide empty implementations of all gz* functions. We compiled these into a static library (libz_stub.a) and injected it into the link command right before --end-group to satisfy the linker without needing the real library.
 Missing libdl: Meson couldn't find libdl in the cross-compile environment.
 Fix: Added -ldl explicitly to the linker arguments, relying on the NDK's libc which provides these symbols on Android.
 3. Feature Disabling for Stability
