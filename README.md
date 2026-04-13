@@ -4,7 +4,7 @@ This is a bash script to build freedreno/turnip for android as a magisk module. 
 
 ### Notes;
 
-The script now successfully builds libvulkan_freedreno.so (Mesa 26.0.4) for Android aarch64 and packages it into a Magisk module, ready for installation on Adreno GPU devices.
+The script now successfully builds libvulkan_freedreno.so (Mesa 26.0.4) for Android aarch64 on Linux Debian and packages it into a Magisk module, ready for installation on Adreno GPU devices.
 
 🔍 Summary of Changes & Fixes
 1. Variable Scope: Fixed a bug where $MESASRC_DIR was used as an absolute path after cding into it, causing double-path errors. Switched to relative paths (src/...) inside the build function.
