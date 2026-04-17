@@ -21,4 +21,3 @@
 | Eden Emulator         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>                                        |
 | Kenji-NX Emulator         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>
 |
-| Vita3K         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>                                        |
