@@ -18,3 +18,4 @@
 | Hitman Blood Money : Reprisal                   | ✅     | Tested by [@V3KT0R-87](//github.com/V3KT0R-87)<br>Working, 60 fps Medium Graphics.                                        |
 | Where Winds Meet         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>Working, 30 fps Retroid Pocket 5 device capped - Ultra Settings.                                        |
 | Eden Emulator         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>                                        |
+| AM2R (Another Metroid 2 Remake)         | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>                                        |
