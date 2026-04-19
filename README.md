@@ -38,7 +38,7 @@ Redundancy Removal: Consolidated multiple sed patches into single, robust blocks
 Magisk Packaging: Streamlined the port_lib_for_magisk function to correctly set permissions, sonames, and generate the update-binary and customize.sh scripts.
 
 6. Version-Agnsotic
-Script now functiona and auto populates appropriatly consistent naming convention for output zipped files, and meta/config info based upon the particular version you are building.
+Script now auto populates appropriatly consistent naming convention for output zipped files, and meta/config info based upon the particular version you are building.
 
 📜 The "Magic" Flags Used
 The final meson setup command that made it all work:
