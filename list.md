@@ -11,7 +11,7 @@
 | AM2R (Another Metroid 2 Remake)                 | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>requires root - app uses installed firmware driver - requires system level implementation of driver|
 | Firmware/System level driver - Qualcomm Adreno 650 | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>Tested on Magisk rooted Retroid Pocket 5 - confirmed with DevCheck|
 | Genshin Impact                                  | ✅     | Edit `hardware_model_config.json` for vulkan.<br>Requires new testing!                                                    |
-| Fortnite Mobile                                 | ✅     | Fortnite uses Vulkan by default on supported devices since UE5 upgrade.                                                   |
+| Fortnite Mobile                                 | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
 | 3D Mark                                         | ✅     | Requires new testing!                                                                                                     |
 | GRID™ Autosport                                 | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
 | SpongeBob SquarePants Battle For Bikini Bottom  | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
