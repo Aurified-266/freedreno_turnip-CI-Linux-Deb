@@ -12,15 +12,15 @@
 | Firmware/System level driver - Qualcomm Adreno 650 | ✅     | Tested by [@Aurified.Dev](//github.com/Aurified-266)<br>Tested on Magisk rooted Retroid Pocket 5 - confirmed with DevCheck|
 | Genshin Impact                                  | ✅     | Edit `hardware_model_config.json` for vulkan.<br>Requires new testing!                                                    |
 | Fortnite Mobile                                 | ✅     | Fortnite uses Vulkan by default on supported devices since UE5 upgrade.                                                   |
-| 3D Mark                                         | ✅     |                                                                                                                           |
-| GRID™ Autosport                                 | ✅     | Tested by [V3KT0R-87](//github.com/V3KT0R-87)                                                                             |
-| SpongeBob SquarePants Battle For Bikini Bottom  | ✅     | Requires new testing!                                                                                                     |
-| Carx Street                                     | ✅     | Tested by [V3KT0R-87](//github.com/V3KT0R-87)                                                                             |
-| EggNS                                           | ✅     | Requires new testing!                                                                                                     |
+| 3D Mark                                         | ✅     | Requires new testing!                                                                                                     |
+| GRID™ Autosport                                 | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| SpongeBob SquarePants Battle For Bikini Bottom  | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| Carx Street                                     | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| EggNS                                           | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
 | ANGLE (com.android.angle)                       | ✅     |                                                                                                                           |
 | ARK: Survival Evolved                           | ✅     |                                                                                                                           |
 | Revelation M -CBT                               | ❌     | Requires new testing!                                                                                                     |
-| TauCeti Vulkan Technology Benchmark             | ✅     | Requires new testing!                                                                                                     |
-| COD Warzone                                     | ✅     | Requires new testing!                                                                                                     |
-| GTA Trilogy - Definitive Edition                | ✅     | Working, Requires new testing!                                                                                            |
-| Hitman Blood Money : Reprisal                   | ✅     | Tested by [@V3KT0R-87](//github.com/V3KT0R-87)<br>Working, 60 fps Medium Graphics.                                        |
+| TauCeti Vulkan Technology Benchmark             | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| COD Warzone                                     | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| GTA Trilogy - Definitive Edition                | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
+| Hitman Blood Money : Reprisal                   | ✅     | Old build functions - New Build Performance Requires new testing!                                                         |
