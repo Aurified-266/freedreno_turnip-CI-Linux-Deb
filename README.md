@@ -1,6 +1,6 @@
 ### TLDR;
 
-This is a bash script to build Turnip for android as a magisk module and adpkg. Made specifically for compatibilty with Linux-Debian architecture. Linux-Deb users may encounter a host of problems when attemptiong to compile the bash script origionally given by ilhan-athn7 and later forked by k11mch1, this new bash script bypasses issues surrounding dependency issues, lack of explicit work environment definition, and missing non-linux native host-lib-functions.
+This is a bash script to build Turnip for android as a magisk module and adpkg. Made specifically for compatibilty with Linux-Debian architecture. Linux-Deb users may encounter a host of problems when attempting to compile the bash script origionally given by ilhan-athn7 and later forked by k11mch1, this new bash script bypasses issues surrounding dependency issues, lack of explicit work environment definition, and missing non-linux native host-lib-functions.
 
 ### Notes;
 
