@@ -29,6 +29,7 @@ To bypass complex dependencies that were impossible to resolve cleanly in a cros
 
 -Dgallium-drivers=: Disabled the Gallium API (desktop OpenGL) to focus purely on the Vulkan driver, reducing build size and complexity.
 
+
 4. Build System Patches
 libfreedreno_drm Error: The perfcntrs/meson.build file referenced a variable that only exists when Gallium is enabled.
 Fix: Added a sed command to comment out line 40 of src/freedreno/perfcntrs/meson.build before running Meson.
