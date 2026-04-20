@@ -89,7 +89,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 ### Tested with the apps/games listed [here](list.md). 🎮
 
 #### Magisk Build:
-- Ensure program is using Vulkan for best compatibility - try using a (VulkanSwitcher)(https://www.magiskmodule.com/hypervulkan-switcher/) 
+- Ensure program is using Vulkan for best compatibility - try using a [VulkanSwitcher](https://www.magiskmodule.com/hypervulkan-switcher/) - *soon to be forked*
 - else-OpenGL_ES - Defaults to Vulkan driver for render *(vulkan -> egl -> opengles)*
 
 #### Emulation/Root adpkg
