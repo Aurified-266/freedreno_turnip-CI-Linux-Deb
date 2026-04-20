@@ -57,7 +57,7 @@ The script now successfully builds vulkan.turnip.so (Mesa 26.0.X) for Android aa
 
 #### 6. Version-Agnostic 🔁
 
-- Script now auto populates appropriatly consistent naming convention for output zipped files, and meta/config info based upon the particular version you are building.
+- Script now auto populates appropriately consistent naming convention for output zipped files, and meta/config info based upon the particular version you are building.
 
 ### 📜 The "Magic" Flags Used
 
