@@ -101,7 +101,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 
 ### ToDo: 
 | Planned | Completed | Purpose |
-| :---    | :---      |
+| :---    | :---      | :---    |
 | - Update script so that a readable, reasonable, consistent file naming convention is used | ✅ | Scipt stability feature |
 | - Update script to include the auto population of approriate meta and config info to be auto zipped | ✅ | Scipt meta convention consistency feature |
 | - Update script to include auto building .adpkg file so manual build isn't necessary (auto zip - contents only! - of both build folders -Magisk/ADPKG) | ✅ | Script ease of access feature |
