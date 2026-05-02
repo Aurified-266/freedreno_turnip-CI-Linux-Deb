@@ -18,7 +18,7 @@ sdkver="34"
 
 # === BUILD SELECTION ===
 # Uncomment the line for the version you want to build.
-mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.0.5/mesa-mesa-26.0.5.zip" # Version Specific
+mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.0.6/mesa-mesa-26.0.6.zip" # Version Specific
 # mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
 
 clear
@@ -77,7 +77,7 @@ prepare_workdir(){
     ndk_url="https://dl.google.com/android/repository/${ndkver}-linux.zip"
     if ! curl -L "$ndk_url" --output "${ndkver}.zip" --fail; then
         echo -e "$red Failed to download NDK. Trying alternative version... $nocolor"
-        ndkver="android-ndk-r26d"
+        ndkver="android-ndk-r27d"
         ndk_url="https://dl.google.com/android/repository/${ndkver}-linux.zip"
         curl -L "$ndk_url" --output "${ndkver}.zip" --fail || {
             echo -e "$red Could not download NDK. Please download manually. $nocolor"
