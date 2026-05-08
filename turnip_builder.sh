@@ -2,7 +2,7 @@
 
 # A bash script for Linux designed to build ADPKG and Magisk Mesa Turnip drivers on Debian-based systems.
 # Based on work by ilhan-athn7 and K11MCH1.
-# Optimized for Mesa 26.0.X (Dev/Stable) with Android NDK r27d.
+# Optimized for Mesa 26.X.X (Dev/Stable) with Android NDK r27d.
 # Default configured for stable branch - update ndkver and mesarc when necessary - update "Dev", "RC", and "GA" where applicable
 
 # Define variables
@@ -18,7 +18,7 @@ sdkver="34"
 
 # === BUILD SELECTION ===
 # Uncomment the line for the version you want to build.
-mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.0.6/mesa-mesa-26.0.6.zip" # Version Specific
+mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.1.0/mesa-mesa-26.1.0.zip" # Version Specific
 # mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
 
 clear
