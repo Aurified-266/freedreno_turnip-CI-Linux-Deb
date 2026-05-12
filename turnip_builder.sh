@@ -335,15 +335,52 @@ EOF
 EOF
 
     cat >"$magiskdir/system.prop" <<EOF
-debug.hwui.renderer=skiagl
 ro.hardware.vulkan=turnip
 EOF
 
     cat >"$magiskdir/customize.sh" <<EOF
 #!/system/bin/sh
-MODPATH=\$1
-set_perm_recursive \$MODPATH/system 0 0 0755 0644
-set_perm \$MODPATH/system/vendor/lib64/hw/vulkan.turnip.so 0 0 0644
+# Magisk Module Install Script for Turnip Vulkan Driver
+# Optimized for: vulkan.turnip.so
+
+MODPATH=$1
+ZIPFILE=$2
+
+# Define paths
+TARGET_DIR="$MODPATH/system/vendor/lib64/hw"
+DRIVER_NAME="vulkan.turnip.so"
+FULL_DRIVER_PATH="$MODPATH/system/vendor/lib64/hw/$DRIVER_NAME"
+
+# 1. Create Directory Structure
+mkdir -p "$TARGET_DIR"
+
+# 2. Verify the driver file exists (Safety Check)
+if [ ! -f "$FULL_DRIVER_PATH" ]; then
+    ui_print "ERROR: $DRIVER_NAME not found in module!"
+    ui_print "Please ensure the file is inside: system/vendor/lib64/hw/"
+    abort "Installation failed: Missing driver binary."
+fi
+
+ui_print "Found driver: $DRIVER_NAME"
+
+# 3. Set Permissions
+set_perm_recursive "$MODPATH/system" 0 0 0755 0644
+set_perm "$FULL_DRIVER_PATH" 0 0 0644
+
+# 4. Create Symlink for libvulkan.so (CRITICAL STEP)
+# Android loads 'libvulkan.so', which must point to your specific driver.
+VULKAN_LOADER="$MODPATH/system/vendor/lib64/libvulkan.so"
+
+# Remove existing symlink if it exists (clean slate)
+if [ -L "$VULKAN_LOADER" ] || [ -f "$VULKAN_LOADER" ]; then
+    rm -f "$VULKAN_LOADER"
+fi
+
+# Create the link: libvulkan.so -> vulkan.turnip.so
+ln -sf "$DRIVER_NAME" "$VULKAN_LOADER"
+
+ui_print "Created symlink: libvulkan.so -> $DRIVER_NAME"
+ui_print "Installation complete. Reboot to apply."
 EOF
 
     cp "$workdir/vulkan.turnip.so" "$magiskdir/$p1/"
