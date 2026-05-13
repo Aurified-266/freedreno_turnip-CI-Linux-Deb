@@ -18,8 +18,8 @@ sdkver="34"
 
 # === BUILD SELECTION ===
 # Uncomment the line for the version you want to build.
-# mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.1.0/mesa-mesa-26.1.0.zip" # Version Specific
-mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
+mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.1.0/mesa-mesa-26.1.0.zip" # Version Specific
+# mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
 
 clear
 
