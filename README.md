@@ -96,8 +96,8 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 - For emulators, or other root level adpkg installs - software or firmware
 
 #### To Build Locally
-- Obtain the script [turnipbuilder.sh] / [turnipbuilderdev.sh]
-- Execute script on linux deb terminal `bash ./turnipbuilder.sh` / `bash ./turnipbuilderdev.sh`
+- Obtain the script [turnip_builder.sh] / [turnipbuilderdev.sh]
+- Execute script on linux deb terminal `bash ./turnip_builder.sh` / `bash ./turnipbuilderdev.sh`
 - script will require >= 3.3gb of space for work_dir - depending on settings - work_dir can be deleted after exported zips are moved out of work_dir and installed
 
 ### ToDo: 
