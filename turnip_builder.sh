@@ -18,8 +18,8 @@ sdkver="34"
 
 # === BUILD SELECTION ===
 # Uncomment the line for the version you want to build.
-mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.1.0/mesa-mesa-26.1.0.zip" # Version Specific
-# mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
+# mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/mesa-26.1.0/mesa-mesa-26.1.0.zip" # Version Specific
+mesasrc="https://gitlab.freedesktop.org/mesa/mesa/-/archive/main/mesa-main.zip" # Dev branch
 
 clear
 
@@ -195,9 +195,11 @@ EOF
     ar rcs "$workdir/stub_libs/libz_stub.a" "$workdir/stub_libs/zlib_stubs.o"
     echo "Zlib stubs created."
 
-    # Patch perfcntrs to avoid "Unknown variable" error
+    # Patch perfcntrs to avoid "Unknown variable" error (Robust Pattern Match)
     if [ -f "src/freedreno/perfcntrs/meson.build" ]; then
-        sed -i '40s/^/# PATCHED: /' "src/freedreno/perfcntrs/meson.build"
+        # Find the line with "libfreedreno_drm" and comment it out
+        sed -i '/libfreedreno_drm/s/^/# PATCHED: /' "src/freedreno/perfcntrs/meson.build"
+        echo "Patched perfcntrs/meson.build for libfreedreno_drm."
     fi
 
     echo "Configuring Meson build (disabling shader cache & zlib)..."
