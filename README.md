@@ -99,7 +99,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 
 #### To Build Locally
 - Obtain the script [turnipbuilder.sh]
-- Change line 20 **`BUILD_TYPE="DEV"`** between **`"DEV"`** and **`"STABLE"`** / DEV pulls from most recently published main dev build. STABLE pulls from the specific stable release url provided on line 28
+- Change Build Config section to your desired results. ie. *change line 20 **`BUILD_TYPE="DEV"`** between **`"DEV"`** and **`"STABLE"`** / DEV pulls from most recently published main dev build. STABLE pulls from the specific stable release url provided on line 28*
 - Save and Run script on linux deb terminal `bash ./turnipbuilder.sh` - if script is in folder; right click in folder and `open in terminal` then run `bash` command in folder. Ensure no spaces in run folder/environment and use "_" or "-" instead of spaces.
 - script will require >= 3.3gb of space for work_dir - depending on settings - work_dir can be deleted after exported zips are moved out of work_dir and installed
 
