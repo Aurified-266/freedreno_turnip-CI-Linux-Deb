@@ -98,8 +98,9 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 - For emulators, or other root level adpkg installs - software or firmware
 
 #### To Build Locally
-- Obtain the script [turnipbuilderstable.sh] / [turnipbuilderdev.sh]
-- Execute script on linux deb terminal `bash ./turnipbuilderstable.sh` / `bash ./turnipbuilderdev.sh`
+- Obtain the script [turnipbuilder.sh]
+- Change line 20 **`BUILD_TYPE="DEV"`** between **`"DEV"`** and **`"STABLE"`** / DEV pulls from most recently published main dev build. STABLE pulls from the specific stable release url provided on line 28
+- Save and Run script on linux deb terminal `bash ./turnipbuilder.sh` - if script is in folder; right click in folder and `open in terminal` then run `bash` command in folder. Ensure no spaces in run folder/environment and use "_" or "-" instead of spaces.
 - script will require >= 3.3gb of space for work_dir - depending on settings - work_dir can be deleted after exported zips are moved out of work_dir and installed
 
 ### ToDo: 
@@ -110,7 +111,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 | - Update script to include auto building .adpkg file so manual build isn't necessary (auto zip - contents only! - of both build folders -Magisk/ADPKG) | ✅ | Script ease of access feature |
 | - Update script to make version-agnostic; functioning regardless of mesarc version pulled and making inclusive of all version folder paths used by differently named archives and builds | ✅ | Script compatibility feature |
 | - Bump Vulkan to v1.4 | Auto | Script will auto populate in reporting programs when Vulkan 1.4 is standardized - ie. *Mesa3d repo header update* & *Vendors update their Vulkan Loader & System Libraries* to offer official support and system reporting - *No force flags used in compilation* |
-| - Resolve complex dependency issues to enable shader cache and shader cache compression | zstd Re-Enabled / when Mesa devs translate over turnip shader cache to use zstd, so to will shader cache be re-enabled | Driver efficiency and performance |
+| - Resolve complex dependency issues to enable shader cache and shader cache compression | zstd Re-Enabled / when *(if)* Mesa devs translate over turnip shader cache to use zstd, so to will shader cache be re-enabled | Driver efficiency and performance |
 
 ### References
 
