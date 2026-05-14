@@ -6,7 +6,7 @@ When switching drivers - if experiencing crashes - clear driver shader cache(s)
 
 ### Notes;
 
-The script now successfully builds *vulkan.turnip.so (Mesa 26.X.X)* for Android aarch64 on Linux Debian; and packages it into a Magisk module and adpkg, ready for installation on Adreno GPU devices. *Developer debug tools disabled.*
+The script now successfully builds *vulkan.turnip.so (Mesa 26.X.X)* for Android aarch64 on Linux Debian; and packages it into a Magisk module and adpkg, ready for installation on Adreno GPU devices. *Developer debug tools and GPU Cache disabled.*
 
 ### 🔍 Summary of Changes & Fixes
 
@@ -30,9 +30,9 @@ The script now successfully builds *vulkan.turnip.so (Mesa 26.X.X)* for Android 
 
 - To bypass complex dependencies that are impossible to resolve cleanly in a cross-compile environment, deliberately disabled non-essential features:
 
--Dshader-cache=disabled: Prevented the build from requiring zlib for shader caching. (Trade-off: Slightly longer initial game load times after reboot, but no runtime stutter). / *Re-enabled*
+-Dshader-cache=disabled: Prevented the build from requiring zlib for shader caching. (Trade-off: Slightly longer initial game load times after reboot, but no runtime stutter).
 
--Dzlib=disabled & -Dzstd=disabled: Removed the need for real compression libraries. *Re-enabled*
+-Dzlib=disabled & -Dzstd=disabled: Removed the need for real compression libraries. * zstd Re-enabled*
 
 -Dspirv-tools=disabled: Avoided header path conflicts with the system spirv-tools.
 
@@ -75,7 +75,7 @@ The final meson setup command that made it all work:
 -Dzstd=disabled \ *Re-enabled*
 -Dspirv-tools=disabled \
 -Dzlib=disabled \
--Dshader-cache=disabled \ *Re-enabled*
+-Dshader-cache=disabled \
 -Dc_link_args="-L$workdir/stub_libs -lz_stub -ldl"
 
 ### 🚀 Conclusion
@@ -110,7 +110,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 | - Update script to include auto building .adpkg file so manual build isn't necessary (auto zip - contents only! - of both build folders -Magisk/ADPKG) | ✅ | Script ease of access feature |
 | - Update script to make version-agnostic; functioning regardless of mesarc version pulled and making inclusive of all version folder paths used by differently named archives and builds | ✅ | Script compatibility feature |
 | - Bump Vulkan to v1.4 | Auto | Script will auto populate in reporting programs when Vulkan 1.4 is standardized - ie. *Mesa3d repo header update* & *Vendors update their Vulkan Loader & System Libraries* to offer official support and system reporting - *No force flags used in compilation* |
-| - Resolve complex dependency issues to enable shader cache and shader cache compression | ✅ | Driver efficiency and performance |
+| - Resolve complex dependency issues to enable shader cache and shader cache compression | zstd Re-Enabled / when Mesa devs translate over turnip shader cache to use zstd, so to will shader cache be re-enabled | Driver efficiency and performance |
 
 ### References
 
