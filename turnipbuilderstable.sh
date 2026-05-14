@@ -2,8 +2,8 @@
 
 # A bash script for Linux designed to build ADPKG and Magisk Mesa Turnip drivers on Debian-based systems.
 # Based on work by ilhan-athn7 and K11MCH1.
-# Optimized for Mesa 26.X.X (Dev/Stable) with Android NDK r27d.
-# Default configured for stable branch - update ndkver and mesarc when necessary - update "Dev", "RC", and "GA" where applicable
+# Optimized for Mesa 26.X.X (Stable) with Android NDK r27d.
+# Update ndkver and mesarc when necessary
 
 # Define variables
 green='\033[0;32m'
@@ -112,9 +112,72 @@ prepare_workdir(){
 build_lib_for_android(){
     # Set up NDK paths dynamically
     NDK_TOOLCHAIN="$workdir/$ndkver/toolchains/llvm/prebuilt/linux-x86_64"
+
+    # --- ZSTD HEADER SETUP (CORRECTED) ---
+    echo "Downloading Zstd headers for cross-compilation..."
+    ZSTD_VER="1.5.6"
+    ZSTD_TARBALL="$workdir/zstd-${ZSTD_VER}.tar.gz"
+    ZSTD_EXTRACTED="$workdir/zstd-${ZSTD_VER}"
+    ZSTD_INC_DIR="$workdir/zstd-include"
+    
+    rm -rf "$ZSTD_EXTRACTED" "$ZSTD_INC_DIR"
+    mkdir -p "$ZSTD_INC_DIR"
+    
+    # Download
+    if curl -L "https://github.com/facebook/zstd/archive/refs/tags/v${ZSTD_VER}.tar.gz" --output "$ZSTD_TARBALL" --fail; then
+        echo "Extracting Zstd source..."
+        tar -xzf "$ZSTD_TARBALL" -C "$workdir"
+        
+        # The extracted folder is 'zstd-1.5.6', not 'zstd-src'
+        if [ -d "$ZSTD_EXTRACTED" ]; then
+            echo "Copying headers from $ZSTD_EXTRACTED..."
+            # Copy the main header
+            cp "$ZSTD_EXTRACTED/lib/zstd.h" "$ZSTD_INC_DIR/" 2>/dev/null
+            
+            # Copy sub-headers if they exist (common, compress, decompress)
+            if [ -d "$ZSTD_EXTRACTED/lib/common" ]; then
+                cp "$ZSTD_EXTRACTED/lib/common"/*.h "$ZSTD_INC_DIR/" 2>/dev/null
+            fi
+            if [ -d "$ZSTD_EXTRACTED/lib/compress" ]; then
+                cp "$ZSTD_EXTRACTED/lib/compress"/*.h "$ZSTD_INC_DIR/" 2>/dev/null
+            fi
+            if [ -d "$ZSTD_EXTRACTED/lib/decompress" ]; then
+                cp "$ZSTD_EXTRACTED/lib/decompress"/*.h "$ZSTD_INC_DIR/" 2>/dev/null
+            fi
+            
+            echo "Zstd headers extracted to: $ZSTD_INC_DIR"
+            
+            # Cleanup source
+            rm -rf "$ZSTD_EXTRACTED"
+            rm "$ZSTD_TARBALL"
+        else
+            echo -e "$red ERROR: Zstd extraction failed. Folder not found. $nocolor"
+            rm -f "$ZSTD_TARBALL"
+        fi
+    else
+        echo -e "$red Failed to download Zstd headers. Disabling Zstd. $nocolor"
+        rm -f "$ZSTD_TARBALL"
+    fi
+    # ---------------------------
     
     echo "Creating cross-compilation configuration files..."
     
+    # Check for headers
+    ZSTD_C_ARG=""
+    if [ -d "$ZSTD_INC_DIR" ] && [ -f "$ZSTD_INC_DIR/zstd.h" ]; then
+        ZSTD_C_ARG="-I$ZSTD_INC_DIR"
+        echo "Zstd headers found. Adding to compiler args."
+    else
+        echo "Zstd headers NOT found. Disabling Zstd support."
+    fi
+
+    # Generate the c_args line based on whether we have headers
+    if [ -n "$ZSTD_C_ARG" ]; then
+        C_ARGS_LINE="c_args = ['-DANDROID', '$ZSTD_C_ARG']"
+    else
+        C_ARGS_LINE="c_args = ['-DANDROID']"
+    fi
+
     cat >"android-aarch64.txt" <<EOF
 [binaries]
 c = ['$NDK_TOOLCHAIN/bin/aarch64-linux-android${sdkver}-clang']
@@ -133,7 +196,7 @@ cpu = 'armv8'
 endian = 'little'
 
 [built-in options]
-c_args = ['-DANDROID']
+$C_ARGS_LINE
 cpp_args = ['-DANDROID']
 EOF
 
@@ -202,7 +265,17 @@ EOF
         echo "Patched perfcntrs/meson.build for libfreedreno_drm."
     fi
 
-    echo "Configuring Meson build (disabling shader cache & zlib)..."
+    # Determine Zstd flag
+    if [ -n "$ZSTD_C_ARG" ]; then
+        ZSTD_FLAG="-Dzstd=enabled"
+        echo "Zstd enabled with custom headers."
+    else
+        ZSTD_FLAG="-Dzstd=disabled"
+        echo "Zstd disabled (headers missing)."
+    fi
+
+    echo "Configuring Meson build (Zstd: $ZSTD_FLAG)..."
+    
     if ! meson setup build-android-aarch64 \
         --cross-file "android-aarch64.txt" \
         --native-file "native.txt" \
@@ -218,15 +291,79 @@ EOF
         -Db_lto=false \
         -Dstrip=true \
         -Degl=disabled \
-        -Dzstd=disabled \
+        $ZSTD_FLAG \
         -Dspirv-tools=disabled \
         -Dzlib=disabled \
         -Dshader-cache=disabled \
         -Dc_link_args="-L$workdir/stub_libs -lz_stub -ldl" \
         >"$workdir/meson_config.log" 2>&1; then
         
+        # ... (rest of the fallback logic) ...
+        
         echo -e "$red Meson configuration failed! $nocolor"
         tail -50 "$workdir/meson_config.log"
+        
+        # Fallback if Zstd failed
+        if grep -qi "zstd" "$workdir/meson_config.log" || grep -qi "zstd.h" "$workdir/meson_config.log"; then
+            echo -e "$yellow Zstd failed. Retrying with Zstd disabled... $nocolor"
+            ZSTD_FLAG="-Dzstd=disabled"
+            ZSTD_INCLUDE_ARG=""
+            
+            if ! meson setup build-android-aarch64 \
+                --cross-file "android-aarch64.txt" \
+                --native-file "native.txt" \
+                --wipe \
+                -Dbuildtype=release \
+                -Dplatforms=android \
+                -Dplatform-sdk-version="$sdkver" \
+                -Dandroid-stub=true \
+                -Dgallium-drivers= \
+                -Dvulkan-drivers=freedreno \
+                -Dvulkan-beta=true \
+                -Dfreedreno-kmds=kgsl \
+                -Db_lto=false \
+                -Dstrip=true \
+                -Degl=disabled \
+                $ZSTD_FLAG \
+                -Dspirv-tools=disabled \
+                -Dzlib=disabled \
+                -Dshader-cache=disabled \
+                -Dc_args="" \
+                -Dc_link_args="-L$workdir/stub_libs -lz_stub -ldl" \
+                >"$workdir/meson_config.log" 2>&1; then
+                
+                echo -e "$red Meson configuration failed even with Zstd disabled! $nocolor"
+                tail -50 "$workdir/meson_config.log"
+                exit 1
+            fi
+            echo -e "$green Build configured with Zstd disabled (Fallback). $nocolor"
+        else
+            exit 1
+        fi
+    else
+        echo -e "$green Build configured with Zstd enabled! $nocolor"
+    fi
+
+    # --- END ZSTD ATTEMPT ---
+
+    echo "Patching build.ninja to remove host libraries and inject stubs..."
+    if [ -f "build-android-aarch64/build.ninja" ]; then
+        # Remove host libelf, libz, AND libzstd paths
+        sed -i 's| /usr/lib/x86_64-linux-gnu/libelf.so||g' build-android-aarch64/build.ninja
+        sed -i 's| /usr/lib/x86_64-linux-gnu/libz.so||g' build-android-aarch64/build.ninja
+        sed -i 's| /usr/lib/x86_64-linux-gnu/libzstd.so||g' build-android-aarch64/build.ninja
+        
+        # Inject our stub library right before --end-group
+        STUB_LIB_PATH="$workdir/stub_libs/libz_stub.a"
+        sed -i "s| -Wl,--end-group| ${STUB_LIB_PATH} -Wl,--end-group|" build-android-aarch64/build.ninja
+        
+        if grep -q "${STUB_LIB_PATH}" build-android-aarch64/build.ninja; then
+            echo "Successfully injected zlib stubs."
+        else
+            echo "WARNING: Stub injection might have failed. Check build.ninja."
+        fi
+    else
+        echo "ERROR: build.ninja not found!"
         exit 1
     fi
 
