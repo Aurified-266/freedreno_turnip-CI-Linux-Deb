@@ -110,7 +110,7 @@ Packages an ADPKG file ready for emulators, or for other Adreno GPU's by other r
 | - Update script to include auto building .adpkg file so manual build isn't necessary (auto zip - contents only! - of both build folders -Magisk/ADPKG) | ✅ | Script ease of access feature |
 | - Update script to make version-agnostic; functioning regardless of mesarc version pulled and making inclusive of all version folder paths used by differently named archives and builds | ✅ | Script compatibility feature |
 | - Bump Vulkan to v1.4 | Auto | Script will auto populate in reporting programs when Vulkan 1.4 is standardized - ie. *Mesa3d repo header update* & *Vendors update their Vulkan Loader & System Libraries* to offer official support and system reporting - *No force flags used in compilation* |
-| - Resolve complex dependency issues to enable shader cache and shader cache compression | Next | Driver efficiency |
+| - Resolve complex dependency issues to enable shader cache and shader cache compression | ✅ | Driver efficiency and performance |
 
 ### References
 
