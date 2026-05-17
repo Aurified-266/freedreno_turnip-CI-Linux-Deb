@@ -1,5 +1,5 @@
 # 🛠️Mesa-Turnip Continued Integration / Continued Development
->## *Android Graphics Driver Build Script / Build Repo for - `Linux-Debian and Android`*
+>## *Android Graphics Driver Build Script / Repo for - `Linux-Debian and Android`*
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Platform](https://img.shields.io/badge/Platform-Android%2013%2B-green.svg)
